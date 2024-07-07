@@ -14,6 +14,15 @@
               max-width: fit-content;
               margin-left: auto;
               margin-right: auto;
+              text-align: left;
+              vertical-align: baseline;
+          }
+          h1{
+            text-align: center;
+            color: brown;
+          }
+          input[type=text] {
+            border-radius: 25px;
           }
       </style>
       </head>
@@ -32,10 +41,19 @@
           <h1>Advance Search</h1>
           <form action="https://www.google.com/search">
             <div id="search_bar">
-                <input type="text" name="q">
+              <input type="text" name="as_q" placeholder="all these words">
+            </div>
+            <div id="search_bar">
+              <input type="text" name="as_epq" placeholder="this exact word or phrase">
+            </div>
+            <div id="search_bar">
+              <input type="text" name="as_oq" placeholder="any of these words">
+            </div>
+            <div id="search_bar">
+              <input type="text" name="as_eq" placeholder="none of these words">
             </div>
             <div id="button">
-                <input type="submit" value="Google Search">
+              <input type="submit" value="Advance Search" style="background-color: #4d90fe;">
             </div>
         </form>
     </body>
