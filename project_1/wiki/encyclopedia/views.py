@@ -72,4 +72,15 @@ def search(request):
 def new_page(request):
     if request.method == "POST":
         title = request.POST.get("title")
-    return render(request, "encyclopedia/new_page.html")
+        text = request.POST.get("text")
+        entries = util.list_entries()
+        if title in entries:
+            return render(request, "encyclopedia/error.html",{
+                "message": f"Entry {title} already exists"
+            })
+        else:
+            util.save_entry(title, text)
+            return render(request, "encyclopedia/markdown.html",
+                {"title": title, "html_content": convert_md_html(title)})
+    if request.method == "GET":
+        return render(request, "encyclopedia/new_page.html")
