@@ -39,7 +39,7 @@ def index(request):
 def wiki(request, title):
     html_content = convert_md_html(title)
     if html_content == None:
-        return render(request, "encyclopedia/error.html", {"title": title})
+        return render(request, "encyclopedia/error.html", {"message": f"Error {title} does not exist"})
     else:
         return render(request, "encyclopedia/markdown.html",
                       {"title": title, "html_content": html_content})
@@ -70,4 +70,6 @@ def search(request):
             return render(request, "encyclopedia/search.html", {"data": data})
         
 def new_page(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
     return render(request, "encyclopedia/new_page.html")
