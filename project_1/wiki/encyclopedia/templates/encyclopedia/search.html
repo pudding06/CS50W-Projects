@@ -1,0 +1,17 @@
+
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block body %}
+    <h1>Search</h1>
+
+    <ul>
+        {% for dict in data %}
+            <li><a href={{dict.url}}>{{ dict.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
