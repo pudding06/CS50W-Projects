@@ -5,5 +5,12 @@
 {% endblock %}
 
 {% block body %}
-    {{html_content |safe}} 
+    {{html_content |safe}}
+    <div style="position: absolute; bottom: 25px;">
+        <form action="{% url 'edit' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="title" value="{{title}}">
+            <input type="submit" value="Edit" class="btn btn danger">
+        </form>
+    </div>
 {% endblock %}
