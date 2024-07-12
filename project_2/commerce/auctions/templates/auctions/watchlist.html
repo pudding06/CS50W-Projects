@@ -1,0 +1,20 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+
+    {% for listing in listings %}
+        {% if listing.isActive %}
+            <div style="border-style: solid;">
+                <h3>Listing: {{ listing.title }}</h3>
+                <h4>Description:<h4>
+                    <p>{{ listing.description }}<p>
+                <h4>Price:$ {{ listing.price }}</h4>
+                
+                <a href="{% url 'listing' id=listing.id %}" class="btn btn-info">Go to listing</a>
+            </div>
+        {% endif %}
+    {% empty %}
+        No items Added to watchist
+    {% endfor %}
+{% endblock %}
