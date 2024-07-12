@@ -9,8 +9,10 @@ from .models import User, Listings, Category
 
 def index(request):
     listings = Listings.objects.all()
+    categorys = Category.objects.all()
     return render(request, "auctions/index.html",{
-        "listings": listings
+        "listings": listings,
+        "categorys": categorys
     })
 
 
@@ -119,3 +121,15 @@ def watchlist(request):
     return render(request, "auctions/watchlist.html", {
                 "listings": listings
                 })
+
+def display_category(request):
+    if request.method == "POST":
+        catfromform = request.POST["category"]
+        print(catfromform)
+        category = Category.objects.get(category_name=catfromform)
+        listings = Listings.objects.filter(isActive=True, category=category)
+        categorys = Category.objects.all()
+        return render(request, "auctions/index.html",{
+            "listings": listings,
+            "categorys": categorys
+        })

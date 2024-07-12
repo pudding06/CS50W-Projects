@@ -2,6 +2,15 @@
 
 {% block body %}
     <h2>Active Listings</h2>
+    <form method="post" action="{% url 'display_category' %}">
+        {% csrf_token %}
+        <select name="category">
+            {% for category in categorys %}
+                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="search">
+    </form>
 
     {% for listing in listings %}
         {% if listing.isActive %}
@@ -9,7 +18,7 @@
                 <h3>Listing: {{ listing.title }}</h3>
                 <img src="{{ lising.image }}", alt="No Image">
                 <h4>Description:<h4>
-                    <p>{{ listing.description }}<p>
+                <p>{{ listing.description }}<p>
                 <h4>Price:$ {{ listing.price }}</h4>
                 
                 <a href="{% url 'listing' id=listing.id %}" class="btn btn-info">Go to listing</a>
