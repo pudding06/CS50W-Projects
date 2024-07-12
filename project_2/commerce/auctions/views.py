@@ -145,3 +145,17 @@ def comment(request, id):
             message=comment
         )
         return HttpResponseRedirect(reverse("listing", args=(id, )))
+    
+def bid(request, id):
+    if request.method == "POST":
+        listing = Listings.objects.get(pk=id)
+        price = float(listing.price)
+        bid = float(request.POST["bid"])
+        if bid > price:
+            listing.price = bid
+            listing.save()
+            return HttpResponseRedirect(reverse("listing", args=(id, )))
+        else:
+            return render(request, "auctions/error.html", {
+                "message": f"Bid too small"
+            })

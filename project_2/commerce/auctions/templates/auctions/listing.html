@@ -34,6 +34,12 @@
                 <input type="submit" value="post">
             </form>
         </div>
+        <form action="{% url 'bid' id=listing.id %}", method="POST">
+            {% csrf_token %}
+            <label>Bid: </label>
+            <input type="text" name="bid" placeholder="place bid" autocomplete="off">
+            <input type="submit" value="bid">
+        </form>
     {%endif%}
     Comments:
     <div style="border: solid; padding: 5px;">
