@@ -63,5 +63,12 @@ def register(request):
         return render(request, "auctions/register.html")
     
 def create_listings(request):
-    return render(request, "auctions/create_listings.html")
-
+    if request.method == "GET":
+        return render(request, "auctions/create_listings.html")
+    if request.method == "POST":
+        title = request.POST["title"]
+        description = request.POST["description"]
+        price = request.POST["price"]
+        image = request.POST["image"]
+        print(f"title: {title}\ndesc: {description}\nprice: {price}")
+        return render(request, "auctions/index.html")

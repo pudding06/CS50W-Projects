@@ -19,6 +19,8 @@ class Comments(models.Model):
 
 class Listings(models.Model):
     price = models.FloatField()
+    description = models.TextField()
     bids = models.ForeignKey(Bids, on_delete=models.CASCADE)
     lister = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.URLField()
     pass

@@ -3,5 +3,25 @@
 {% block body %}
     <h2>Create Listings</h2>
 
-    TODO
+    <form method="post" action="{% url 'create_listings' %}">
+        {% csrf_token %}
+        Title
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="title" placeholder="Title">
+        </div>
+        Description
+        <div class="form-group">
+            <textarea autofocus class="form-control" type="text" name="description" placeholder="Description"></textarea>
+        </div>
+        Price
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="price" placeholder="Price">
+        </div>
+        Image
+        <div class="form-group">
+            <input autofocus class="form-control" type="url" name="image" placeholder="Image">
+        </div>
+
+        <input type="submit" value="list item">
+    </form>
 {% endblock %}
