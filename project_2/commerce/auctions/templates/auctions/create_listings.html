@@ -21,6 +21,14 @@
         <div class="form-group">
             <input autofocus class="form-control" type="url" name="image" placeholder="Image">
         </div>
+        Category
+        <div class="form-group">
+            <select name="category" id="">
+                {% for category in all_catergorys %}
+                    <option>{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
         <input type="submit" value="list item">
     </form>

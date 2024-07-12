@@ -3,5 +3,19 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    {% for listing in listings %}
+        {% if listing.isActive %}
+            <div style="border-style: solid;">
+                <h3>Listing: {{ listing.title }}</h3>
+                <img src="{{ lising.image }}", alt="No Image">
+                <h4>Description:<h4>
+                    <p>{{ listing.description }}<p>
+                <h4>Price:$ {{ listing.price }}</h4>
+                
+                <a href="{% url 'listing' id=listing.id %}" class="btn btn-info">Go to listing</a>
+            </div>
+        {% endif %}
+    {% empty %}
+        No Listings
+    {% endfor %}
 {% endblock %}

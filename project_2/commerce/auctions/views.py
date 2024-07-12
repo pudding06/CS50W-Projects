@@ -4,11 +4,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from .models import User
+from .models import User, Listings, Category
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+    listings = Listings.objects.all()
+    return render(request, "auctions/index.html",{
+        "listings": listings
+    })
 
 
 def login_view(request):
@@ -64,11 +67,48 @@ def register(request):
     
 def create_listings(request):
     if request.method == "GET":
-        return render(request, "auctions/create_listings.html")
+        all_catergorys = Category.objects.all()
+        return render(request, "auctions/create_listings.html",{
+            "all_catergorys": all_catergorys
+        })
     if request.method == "POST":
         title = request.POST["title"]
         description = request.POST["description"]
         price = request.POST["price"]
         image = request.POST["image"]
+        category = request.POST["category"]
         print(f"title: {title}\ndesc: {description}\nprice: {price}")
-        return render(request, "auctions/index.html")
+
+        # Save listing to database
+        Listings.objects.create(
+            owner=request.user,
+            title=title,
+            description=description,
+            image=image,
+            price=float(price),
+            category=Category.objects.get(category_name=category)
+        )
+        return render(request, "auctions/index.html",{
+            "listings": Listings.objects.all()
+        })
+
+def listing(request, id):
+            listing = Listings.objects.get(id=id)
+            isListingInWatchlist = request.user in listing.watchlist.all()
+
+            return render(request, "auctions/listing.html", {
+                "listing": listing,
+                "watchlist": isListingInWatchlist
+            })
+
+def add(request, id):
+    listing = Listings.objects.get(id=id)
+    user = request.user
+    listing.watchlist.add(user)
+    return HttpResponseRedirect(reverse("listing", args=(id, )))
+
+def remove(request, id):
+    listing = Listings.objects.get(id=id)
+    user = request.user
+    listing.watchlist.remove(user)
+    return HttpResponseRedirect(reverse("listing", args=(id, )))
