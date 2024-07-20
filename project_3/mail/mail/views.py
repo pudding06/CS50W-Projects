@@ -177,13 +177,3 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "mail/register.html")
-
-
-def send(request):
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            recipients = request.POST["compose-recipients"]
-            subject = request.POST["compose-subject"]
-            body = request.POST["compose-body"]
-            print(f"To: {recipients}\nsubject: {subject}")
-        return render(request, "mail/inbox.html")
